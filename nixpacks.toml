@@ -1,0 +1,19 @@
+[phases.setup]
+nixPkgs = ["nodejs_22"]
+cmds = ["corepack enable", "corepack prepare pnpm@9.15.0 --activate"]
+
+[phases.install]
+dependsOn = ["setup"]
+cmds = ["pnpm install"]
+
+[phases.build]
+dependsOn = ["install"]
+cmds = [
+  "pnpm --filter @holdem/shared-types build",
+  "pnpm --filter @holdem/shared-utils build",
+  "pnpm --filter @holdem/web build",
+  "pnpm --filter @holdem/server build"
+]
+
+[start]
+cmd = "if [ \"$APP_TYPE\" = \"server\" ]; then cd apps/server && node dist/index.js; else cd apps/web && npx serve dist -s -l ${PORT:-3000}; fi"

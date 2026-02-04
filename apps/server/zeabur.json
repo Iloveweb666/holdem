@@ -1,4 +1,0 @@
-{
-  "build_command": "cd ../.. && pnpm install && pnpm --filter @holdem/shared-types build && pnpm --filter @holdem/shared-utils build && pnpm --filter @holdem/server build",
-  "start_command": "node dist/index.js"
-}
