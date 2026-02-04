@@ -1,210 +1,169 @@
 # 部署指南
 
-## 方案一：Zeabur（推荐，最简单）
+本项目使用自定义 Dockerfile，支持 Zeabur、Railway 等平台一键部署。
 
-Zeabur 是国内友好的部署平台，中文界面，支持自定义域名。
+## Zeabur 部署（推荐）
 
-### 步骤
+Zeabur 是国内友好的部署平台，中文界面，自动 HTTPS。
 
-1. **注册账号**
-   - 访问 https://zeabur.com
-   - 使用 GitHub 登录
+### 部署步骤
 
-2. **创建项目**
-   - 点击 "New Project"
-   - 选择区域（推荐：东京/新加坡，国内访问快）
+#### 1. 准备工作
+- 访问 https://zeabur.com 并使用 GitHub 登录
+- 点击 **New Project** 创建项目
+- 选择区域（推荐：东京/新加坡，国内访问快）
 
-3. **部署后端服务**
-   - 点击 "Add Service" → "Git"
-   - 选择你的 GitHub 仓库
-   - **Root Directory**: `apps/server`
-   - 等待构建完成
-   - 记下生成的域名（如 `holdem-server-xxx.zeabur.app`）
-
-4. **部署前端服务**
-   - 点击 "Add Service" → "Git"
-   - 选择同一仓库
-   - **Root Directory**: `apps/web`
-   - 添加环境变量：
-     ```
-     VITE_API_URL=https://你的后端域名
-     ```
-   - 等待构建完成
-
-5. **绑定自定义域名**
-   - 在服务设置中点击 "Domain"
-   - 添加你的域名
-   - 按提示配置 DNS CNAME 记录
-
-### 费用
-- 免费额度：每月 $5 免费额度
-- 超出后按用量计费
-
----
-
-## 方案二：Railway
-
-Railway 是国际流行的部署平台，自动 HTTPS。
-
-### 步骤
-
-1. **注册账号**
-   - 访问 https://railway.app
-   - 使用 GitHub 登录
-
-2. **创建项目**
-   ```bash
-   # 安装 Railway CLI（可选）
-   npm install -g @railway/cli
-   railway login
+#### 2. 部署后端服务
+1. 点击 **Add Service** → **Git** → 选择 `holdem` 仓库
+2. **Root Directory**: 留空（从根目录部署）
+3. 等待构建完成
+4. 点击 **Variables** 添加环境变量：
    ```
-
-3. **从 GitHub 部署**
-   - 点击 "New Project" → "Deploy from GitHub repo"
-   - 选择仓库
-
-4. **配置后端服务**
-   - 点击 "Add Service" → 选择同一仓库
-   - Settings → Root Directory: `apps/server`
-   - Variables 添加：
-     ```
-     PORT=3000
-     CORS_ORIGIN=https://你的前端域名
-     ```
-
-5. **配置前端服务**
-   - 点击 "Add Service" → 选择同一仓库
-   - Settings → Root Directory: `apps/web`
-   - Variables 添加：
-     ```
-     VITE_API_URL=https://你的后端域名
-     ```
-
-6. **生成域名**
-   - 每个服务点击 Settings → Generate Domain
-   - 或绑定自定义域名
-
-### 费用
-- 免费试用：$5 初始额度
-- Hobby Plan：$5/月
-
----
-
-## 方案三：Docker + 云服务器
-
-完全控制，适合生产环境。
-
-### 前置要求
-- 一台云服务器（阿里云/腾讯云 ECS，推荐 2核4G）
-- 已安装 Docker 和 Docker Compose
-- 域名已解析到服务器 IP
-
-### 步骤
-
-1. **服务器准备**
-   ```bash
-   # 安装 Docker（Ubuntu/Debian）
-   curl -fsSL https://get.docker.com | sh
-
-   # 安装 Docker Compose
-   sudo apt install docker-compose-plugin
-
-   # 启动 Docker
-   sudo systemctl enable docker
-   sudo systemctl start docker
+   APP_TYPE=server
+   PORT=3000
+   CORS_ORIGIN=*
    ```
+5. 点击 **Networking** → **Generate Domain** 生成域名
+6. 记下后端域名（如 `holdem-xxx.zeabur.app`）
 
-2. **上传代码**
-   ```bash
-   # 在服务器上克隆代码
-   git clone https://github.com/你的用户名/holdem.git
-   cd holdem
+#### 3. 部署前端服务
+1. 点击 **Add Service** → **Git** → 选择同一仓库
+2. **Root Directory**: 留空
+3. 等待构建完成
+4. 点击 **Variables** 添加环境变量：
    ```
-
-3. **配置环境变量**
-   ```bash
-   # 编辑 docker-compose 环境变量
-   vi docker/docker-compose.yml
-
-   # 修改 CORS_ORIGIN 为你的域名
-   # CORS_ORIGIN=https://your-domain.com
+   APP_TYPE=web
+   VITE_API_URL=https://你的后端域名
    ```
+   > 例如：`VITE_API_URL=https://holdem-xxx.zeabur.app`
+5. 点击 **Networking** → **Generate Domain** 生成域名
 
-4. **构建并启动**
-   ```bash
-   # 构建镜像
-   docker compose -f docker/docker-compose.yml build
-
-   # 启动服务
-   docker compose -f docker/docker-compose.yml up -d
-
-   # 查看日志
-   docker compose -f docker/docker-compose.yml logs -f
-   ```
-
-5. **配置 Nginx（可选，用于 HTTPS）**
-   ```bash
-   # 安装 Certbot 获取 SSL 证书
-   sudo apt install certbot python3-certbot-nginx
-   sudo certbot --nginx -d your-domain.com
-   ```
-
-6. **访问测试**
-   - 前端：http://your-server-ip (或 https://your-domain.com)
-   - 后端健康检查：http://your-server-ip:3000/health
-
-### 费用
-- 阿里云 ECS 2核4G：约 ¥50-100/月
-- 域名：约 ¥50-100/年
-- SSL 证书：Let's Encrypt 免费
-
----
-
-## 环境变量配置
-
-### 前端 (apps/web)
-| 变量 | 说明 | 示例 |
-|------|------|------|
-| `VITE_API_URL` | 后端 API 地址 | `https://api.example.com` |
-
-### 后端 (apps/server)
-| 变量 | 说明 | 示例 |
-|------|------|------|
-| `PORT` | 监听端口 | `3000` |
-| `HOST` | 监听地址 | `0.0.0.0` |
-| `CORS_ORIGIN` | 允许的前端域名 | `https://example.com` |
-| `NODE_ENV` | 环境 | `production` |
-
----
-
-## 域名配置
-
-### DNS 记录示例
+#### 4. 更新后端 CORS（重要）
+部署前端后，回到后端服务，更新 `CORS_ORIGIN` 为前端域名：
 ```
-# A 记录（直接指向服务器）
-@     A      123.45.67.89
-
-# CNAME 记录（指向平台域名）
-www   CNAME  holdem-web-xxx.zeabur.app
-api   CNAME  holdem-server-xxx.zeabur.app
+CORS_ORIGIN=https://你的前端域名
 ```
 
-### 推荐域名方案
-- 前端：`www.example.com` 或 `example.com`
-- 后端：`api.example.com`
+### 费用
+- 免费额度：每月 $5
+- 超出按用量计费
+
+---
+
+## 访问服务
+
+### 前端访问
+部署完成后，通过 Zeabur 生成的域名访问前端：
+```
+https://你的前端域名
+```
+
+页面功能：
+- `/` - 游戏大厅，查看房间列表
+- `/game` - 游戏房间，进行德州扑克游戏
+- `/profile` - 个人资料页面
+
+### 后端 API
+后端提供 REST API 和 WebSocket 服务：
+
+```
+# 健康检查
+GET https://你的后端域名/health
+
+# 房间列表
+GET https://你的后端域名/api/rooms
+
+# 房间详情
+GET https://你的后端域名/api/rooms/:id
+
+# 创建房间
+POST https://你的后端域名/api/rooms
+
+# 加入房间
+POST https://你的后端域名/api/rooms/:id/join
+
+# WebSocket 连接
+WS wss://你的后端域名/ws/game/:roomId?playerId=xxx
+```
+
+### 验证部署
+1. 访问后端健康检查：`https://后端域名/health`
+   - 应返回：`{"status":"ok","timestamp":...}`
+
+2. 访问前端首页：`https://前端域名`
+   - 应看到德州扑克大厅界面
+
+---
+
+## 环境变量说明
+
+### 前端 (APP_TYPE=web)
+| 变量 | 必填 | 说明 | 示例 |
+|------|------|------|------|
+| `APP_TYPE` | 是 | 服务类型 | `web` |
+| `VITE_API_URL` | 是 | 后端 API 地址 | `https://api.example.com` |
+
+### 后端 (APP_TYPE=server)
+| 变量 | 必填 | 说明 | 示例 |
+|------|------|------|------|
+| `APP_TYPE` | 是 | 服务类型 | `server` |
+| `PORT` | 否 | 监听端口，默认 3000 | `3000` |
+| `CORS_ORIGIN` | 是 | 允许的前端域名 | `https://example.com` |
+
+---
+
+## 绑定自定义域名
+
+### Zeabur 配置
+1. 在服务页面点击 **Networking**
+2. 点击 **Custom Domain**
+3. 输入你的域名（如 `poker.example.com`）
+4. 按提示在域名服务商配置 DNS
+
+### DNS 配置示例
+```
+# CNAME 记录
+poker    CNAME  holdem-web-xxx.zeabur.app
+api      CNAME  holdem-server-xxx.zeabur.app
+```
+
+---
+
+## Docker 本地部署
+
+如果需要在自己的服务器部署：
+
+```bash
+# 克隆代码
+git clone https://github.com/Iloveweb666/holdem.git
+cd holdem
+
+# 使用 docker-compose
+docker compose -f docker/docker-compose.yml build
+docker compose -f docker/docker-compose.yml up -d
+
+# 查看日志
+docker compose -f docker/docker-compose.yml logs -f
+```
+
+访问地址：
+- 前端：http://localhost
+- 后端：http://localhost:3000
 
 ---
 
 ## 常见问题
 
-### Q: CORS 错误怎么解决？
-确保后端的 `CORS_ORIGIN` 环境变量设置为前端的完整域名（包含协议）。
+### Q: 页面白屏或 API 请求失败？
+检查前端的 `VITE_API_URL` 是否正确设置为后端域名。
 
-### Q: WebSocket 连接失败？
-1. 确保 nginx 配置了 WebSocket 代理（参考 `docker/nginx/nginx.conf`）
-2. 检查防火墙是否开放了相应端口
+### Q: CORS 错误？
+确保后端的 `CORS_ORIGIN` 设置为前端的完整域名（包含 `https://`）。
 
 ### Q: 构建失败？
-1. 检查 Node.js 版本是否 >= 22
-2. 检查 pnpm 版本是否 >= 9
+1. 确保从**根目录**部署（Root Directory 留空）
+2. 确保设置了 `APP_TYPE` 环境变量
 3. 查看构建日志定位具体错误
+
+### Q: WebSocket 连接失败？
+Zeabur 自动支持 WebSocket，确保使用 `wss://` 协议。
