@@ -1,0 +1,5 @@
+{
+  "build_command": "cd ../.. && pnpm install && pnpm --filter @holdem/shared-types build && pnpm --filter @holdem/shared-utils build && pnpm --filter @holdem/web build",
+  "output_dir": "dist",
+  "start_command": "npx serve dist -s -l $PORT"
+}

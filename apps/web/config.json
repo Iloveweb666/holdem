@@ -1,0 +1,22 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "src": "src/pages/Lobby.tsx"
+    },
+    {
+      "path": "/profile",
+      "src": "src/pages/Profile.tsx"
+    },
+    {
+      "path": "/game",
+      "src": "src/pages/GameRoom.tsx"
+    }
+  ],
+  "components": [
+    {"name": "BottomNav", "src": "src/components/BottomNav.tsx"},
+    {"name": "RoomCard", "src": "src/components/RoomCard.tsx"},
+    {"name": "PlayingCard", "src": "src/components/PlayingCard.tsx"},
+    {"name": "PlayerSeat", "src": "src/components/PlayerSeat.tsx"}
+  ]
+}

@@ -1,0 +1,143 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--fontSans);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --shadow-x: var(--shadow-x);
+  --shadow-y: var(--shadow-y);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-color: var(--shadow-color);
+}
+
+:root {
+  --fontSans: "Inter", system-ui, sans-serif;
+  
+  /* Dark Casino Theme Base */
+  --background: rgb(18, 18, 20);
+  --foreground: rgb(240, 240, 240);
+  
+  --card: rgb(30, 32, 35);
+  --card-foreground: rgb(255, 255, 255);
+  
+  --popover: rgb(30, 32, 35);
+  --popover-foreground: rgb(255, 255, 255);
+  
+  --primary: rgb(212, 175, 55); /* Gold */
+  --primary-foreground: rgb(0, 0, 0);
+  
+  --secondary: rgb(42, 60, 50); /* Dark Green Accent */
+  --secondary-foreground: rgb(255, 255, 255);
+  
+  --muted: rgb(40, 40, 45);
+  --muted-foreground: rgb(160, 160, 160);
+  
+  --accent: rgb(53, 101, 77); /* Poker Green */
+  --accent-foreground: rgb(255, 255, 255);
+  
+  --destructive: rgb(220, 38, 38);
+  --destructive-foreground: rgb(255, 255, 255);
+  
+  --border: rgb(60, 60, 70);
+  --input: rgb(60, 60, 70);
+  --ring: rgb(212, 175, 55);
+  
+  --radius: 0.5rem;
+  
+  --chart-1: rgb(220, 38, 38);
+  --chart-2: rgb(0, 0, 0);
+  --chart-3: rgb(0, 0, 0);
+  --chart-4: rgb(0, 0, 0);
+  --chart-5: rgb(0, 0, 0);
+  
+  --sidebar: rgb(20, 20, 25);
+  --sidebar-foreground: rgb(240, 240, 240);
+  --sidebar-primary: rgb(212, 175, 55);
+  --sidebar-primary-foreground: rgb(0, 0, 0);
+  --sidebar-accent: rgb(40, 40, 45);
+  --sidebar-accent-foreground: rgb(240, 240, 240);
+  --sidebar-border: rgb(60, 60, 70);
+  --sidebar-ring: rgb(212, 175, 55);
+  
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 10px;
+  --shadow-spread: 0px;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+.dark {
+  /* Same as root since we are forcing dark theme vibe */
+  --background: rgb(18, 18, 20);
+  --foreground: rgb(240, 240, 240);
+  --card: rgb(30, 32, 35);
+  /* ... keep consistent */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    /* Force mobile-like constraint visualization on large screens if desired, but mostly full-width */
+    overflow-x: hidden; 
+  }
+}
+
+@layer utilities {
+  .shadow-custom {
+    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
+  }
+  
+  /* Mobile container utility */
+  .mobile-container {
+    max-width: 480px; 
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: rgb(10, 10, 12);
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  
+  .poker-green-bg {
+    background: radial-gradient(circle, rgb(53, 101, 77) 0%, rgb(30, 60, 45) 100%);
+  }
+}

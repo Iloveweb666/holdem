@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # 前端静态服务
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    networks:
+      - holdem-network
+    restart: unless-stopped
+
+  # 后端 API 服务
+  server:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=3000
+      - CORS_ORIGIN=http://localhost
+    networks:
+      - holdem-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis（用于会话/缓存，可选）
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - holdem-network
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+networks:
+  holdem-network:
+    driver: bridge
+
+volumes:
+  redis-data:

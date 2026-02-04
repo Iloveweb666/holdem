@@ -1,0 +1,32 @@
+{
+  "name": "holdem-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Holdem Poker Game - Monorepo",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "pnpm run --parallel --filter \"./apps/*\" dev",
+    "dev:web": "pnpm --filter @holdem/web dev",
+    "dev:server": "pnpm --filter @holdem/server dev",
+    "build": "pnpm run -r build",
+    "build:web": "pnpm --filter @holdem/web build",
+    "build:server": "pnpm --filter @holdem/server build",
+    "typecheck": "pnpm run -r typecheck",
+    "lint": "pnpm run -r lint",
+    "lint:fix": "pnpm run -r lint:fix",
+    "clean": "pnpm run -r clean && rimraf node_modules",
+    "docker:build": "docker-compose -f docker/docker-compose.yml build",
+    "docker:up": "docker-compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f docker/docker-compose.yml down"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "rimraf": "^6.0.0",
+    "typescript": "~5.9.3"
+  }
+}

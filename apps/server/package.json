@@ -1,0 +1,35 @@
+{
+  "name": "@holdem/server",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.0",
+    "@fastify/websocket": "^11.0.0",
+    "@holdem/shared-types": "workspace:*",
+    "@holdem/shared-utils": "workspace:*",
+    "fastify": "^5.1.0",
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.3.0",
+    "ws": "^8.19.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "rimraf": "^6.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4"
+  }
+}
