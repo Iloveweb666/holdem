@@ -11,6 +11,8 @@ export type PlayerAction = 'fold' | 'check' | 'call' | 'raise' | 'all-in';
 
 // ============ 玩家相关 ============
 
+export type SeatPosition = 'bottom' | 'top' | 'left' | 'right';
+
 export interface Player {
   id: string;
   name: string;
@@ -22,6 +24,7 @@ export interface Player {
   isTurn?: boolean;
   status?: PlayerStatus;
   seatIndex?: number;
+  position?: SeatPosition;
 }
 
 export interface PlayerSession extends Player {
