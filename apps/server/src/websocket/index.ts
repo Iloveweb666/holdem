@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify';
-import type { WebSocket } from 'ws';
+import type { WebSocket, RawData } from 'ws';
 import type { WsMessage, GameAction } from '@holdem/shared-types';
 
 interface Client {
@@ -43,7 +43,7 @@ export const websocketHandler: FastifyPluginAsync = async (fastify) => {
     );
 
     // 消息处理
-    socket.on('message', (data) => {
+    socket.on('message', (data: RawData) => {
       try {
         const message = JSON.parse(data.toString()) as WsMessage;
         handleMessage(clientId, message);
