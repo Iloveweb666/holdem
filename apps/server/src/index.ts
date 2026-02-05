@@ -1,10 +1,12 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import jwt from '@fastify/jwt';
 import websocket from '@fastify/websocket';
 
+import { authRoutes } from './routes/auth.js';
 import { roomRoutes } from './routes/room.js';
 import { gameRoutes } from './routes/game.js';
-import { playerRoutes } from './routes/player.js';
+import { userRoutes } from './routes/user.js';
 import { websocketHandler } from './websocket/index.js';
 
 const fastify = Fastify({
@@ -24,12 +26,27 @@ await fastify.register(cors, {
   credentials: true,
 });
 
+// JWT 插件
+await fastify.register(jwt, {
+  secret: process.env.JWT_SECRET || 'holdem-dev-secret-change-in-production',
+});
+
+// 添加 JWT 验证装饰器
+fastify.decorate('authenticate', async function (request: import('fastify').FastifyRequest, reply: import('fastify').FastifyReply) {
+  try {
+    await request.jwtVerify();
+  } catch (err) {
+    reply.send(err);
+  }
+});
+
 await fastify.register(websocket);
 
 // 注册路由
+await fastify.register(authRoutes, { prefix: '/api/auth' });
 await fastify.register(roomRoutes, { prefix: '/api/rooms' });
 await fastify.register(gameRoutes, { prefix: '/api/game' });
-await fastify.register(playerRoutes, { prefix: '/api/players' });
+await fastify.register(userRoutes, { prefix: '/api/users' });
 
 // WebSocket 处理
 await fastify.register(websocketHandler, { prefix: '/ws' });

@@ -10,6 +10,7 @@ WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY packages/shared-types/package.json ./packages/shared-types/
 COPY packages/shared-utils/package.json ./packages/shared-utils/
+COPY packages/database/package.json ./packages/database/
 COPY apps/web/package.json ./apps/web/
 COPY apps/server/package.json ./apps/server/
 
@@ -19,9 +20,13 @@ RUN pnpm install --frozen-lockfile
 # 复制源码
 COPY . .
 
+# 生成 Prisma Client
+RUN pnpm --filter @holdem/database db:generate
+
 # 构建所有包
 RUN pnpm --filter @holdem/shared-types build
 RUN pnpm --filter @holdem/shared-utils build
+RUN pnpm --filter @holdem/database build
 RUN pnpm --filter @holdem/web build
 RUN pnpm --filter @holdem/server build
 

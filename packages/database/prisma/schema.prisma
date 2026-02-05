@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============ 用户相关 ============
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  name         String
+  avatar       String?
+  chips        Int       @default(10000)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  lastLoginAt  DateTime? @map("last_login_at")
+
+  roomPlayers RoomPlayer[]
+  gameActions GameAction[]
+  statistics  UserStatistics?
+
+  @@map("users")
+}
+
+model UserStatistics {
+  id            String   @id @default(cuid())
+  userId        String   @unique @map("user_id")
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalGames    Int      @default(0) @map("total_games")
+  wins          Int      @default(0)
+  totalWinnings Int      @default(0) @map("total_winnings")
+  totalLosses   Int      @default(0) @map("total_losses")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("user_statistics")
+}
+
+// ============ 房间相关 ============
+
+model Room {
+  id         String     @id @default(cuid())
+  name       String
+  smallBlind Int        @map("small_blind")
+  bigBlind   Int        @map("big_blind")
+  maxPlayers Int        @default(6) @map("max_players")
+  minBuyIn   Int?       @map("min_buy_in")
+  maxBuyIn   Int?       @map("max_buy_in")
+  status     RoomStatus @default(WAITING)
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+
+  players RoomPlayer[]
+  games   Game[]
+
+  @@map("rooms")
+}
+
+model RoomPlayer {
+  id        String       @id @default(cuid())
+  roomId    String       @map("room_id")
+  room      Room         @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  userId    String       @map("user_id")
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chips     Int
+  seatIndex Int          @map("seat_index")
+  status    PlayerStatus @default(WAITING)
+  joinedAt  DateTime     @default(now()) @map("joined_at")
+  leftAt    DateTime?    @map("left_at")
+
+  @@unique([roomId, seatIndex])
+  @@unique([roomId, userId])
+  @@map("room_players")
+}
+
+// ============ 游戏相关 ============
+
+model Game {
+  id               String    @id @default(cuid())
+  roomId           String    @map("room_id")
+  room             Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  phase            GamePhase @default(PREFLOP)
+  pot              Int       @default(0)
+  communityCards   String[]  @map("community_cards")
+  dealerIndex      Int       @map("dealer_index")
+  currentPlayerIdx Int       @map("current_player_idx")
+  startedAt        DateTime  @default(now()) @map("started_at")
+  endedAt          DateTime? @map("ended_at")
+
+  actions GameAction[]
+  results GameResult[]
+
+  @@map("games")
+}
+
+model GameAction {
+  id         String     @id @default(cuid())
+  gameId     String     @map("game_id")
+  game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  userId     String     @map("user_id")
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actionType ActionType @map("action_type")
+  amount     Int?
+  createdAt  DateTime   @default(now()) @map("created_at")
+
+  @@map("game_actions")
+}
+
+model GameResult {
+  id        String   @id @default(cuid())
+  gameId    String   @map("game_id")
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  winners   Json     // [{ oddsOfUsers: number, oddsOfUser: string, oddsOfUsers: number }]
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("game_results")
+}
+
+// ============ 枚举 ============
+
+enum RoomStatus {
+  WAITING
+  PLAYING
+  FINISHED
+}
+
+enum PlayerStatus {
+  WAITING
+  ACTIVE
+  FOLDED
+  ALL_IN
+  DISCONNECTED
+}
+
+enum GamePhase {
+  PREFLOP
+  FLOP
+  TURN
+  RIVER
+  SHOWDOWN
+}
+
+enum ActionType {
+  FOLD
+  CHECK
+  CALL
+  RAISE
+  ALL_IN
+}
