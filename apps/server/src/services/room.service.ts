@@ -9,20 +9,30 @@ const roomStatusMap: Record<RoomStatus, ApiRoomStatus> = {
 };
 
 const playerStatusMap: Record<PlayerStatus, ApiPlayerStatus> = {
+  [PlayerStatus.STANDING]: 'waiting',      // 站立观战映射到 waiting
   [PlayerStatus.WAITING]: 'waiting',
   [PlayerStatus.ACTIVE]: 'active',
   [PlayerStatus.FOLDED]: 'folded',
   [PlayerStatus.ALL_IN]: 'all-in',
+  [PlayerStatus.SPECTATING]: 'waiting',    // 入座观战映射到 waiting
   [PlayerStatus.DISCONNECTED]: 'disconnected',
 };
 
 export interface CreateRoomInput {
   name: string;
+  ownerId: string;  // 房主ID
   smallBlind: number;
   bigBlind: number;
   maxPlayers?: number;
   minBuyIn?: number;
   maxBuyIn?: number;
+}
+
+/**
+ * 生成6位房间号
+ */
+function generateRoomCode(): string {
+  return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
 export interface JoinRoomInput {
@@ -43,9 +53,27 @@ class RoomService {
    * 创建房间
    */
   async createRoom(input: CreateRoomInput) {
+    // 生成唯一房间号（如果冲突则重试）
+    let code = generateRoomCode();
+    let attempts = 0;
+    const maxAttempts = 10;
+
+    while (attempts < maxAttempts) {
+      const existing = await prisma.room.findUnique({ where: { code } });
+      if (!existing) break;
+      code = generateRoomCode();
+      attempts++;
+    }
+
+    if (attempts >= maxAttempts) {
+      throw new Error('FAILED_TO_GENERATE_ROOM_CODE');
+    }
+
     const room = await prisma.room.create({
       data: {
         name: input.name,
+        code,
+        ownerId: input.ownerId,
         smallBlind: input.smallBlind,
         bigBlind: input.bigBlind,
         maxPlayers: input.maxPlayers ?? 6,
@@ -63,7 +91,10 @@ class RoomService {
   async getRooms(filters: RoomListFilters = {}) {
     const { status, page = 1, pageSize = 10 } = filters;
 
-    const where = status ? { status } : {};
+    // 默认只显示 WAITING 和 PLAYING 状态的房间，排除 FINISHED
+    const where = status
+      ? { status }
+      : { status: { not: RoomStatus.FINISHED } };
 
     const [rooms, total] = await Promise.all([
       prisma.room.findMany({
@@ -185,6 +216,10 @@ class RoomService {
       throw new Error('ROOM_NOT_FOUND');
     }
 
+    if (room.status === RoomStatus.FINISHED) {
+      throw new Error('ROOM_CLOSED');
+    }
+
     if (room.players.length >= room.maxPlayers) {
       throw new Error('ROOM_FULL');
     }
@@ -192,7 +227,9 @@ class RoomService {
     // 检查用户是否已在房间
     const existingPlayer = room.players.find((p) => p.userId === userId);
     if (existingPlayer) {
-      throw new Error('ALREADY_IN_ROOM');
+      // 用户已在房间，直接返回现有座位（允许重连）
+      // 如果之前是观战状态（seatIndex 为 null），使用 -1 表示
+      return { success: true, seatIndex: existingPlayer.seatIndex ?? -1, reconnected: true };
     }
 
     // 检查买入金额
@@ -279,6 +316,23 @@ class RoomService {
         data: { leftAt: new Date() },
       }),
     ]);
+
+    // 检查房间是否还有其他玩家，如果没有则关闭房间
+    const remainingPlayers = await prisma.roomPlayer.count({
+      where: {
+        roomId,
+        leftAt: null,
+      },
+    });
+
+    if (remainingPlayers === 0) {
+      // 房间已空，标记为已结束
+      await prisma.room.update({
+        where: { id: roomId },
+        data: { status: RoomStatus.FINISHED },
+      });
+      console.log(`Room ${roomId} is now empty, marked as FINISHED`);
+    }
 
     return { success: true, returnedChips: roomPlayer.chips };
   }

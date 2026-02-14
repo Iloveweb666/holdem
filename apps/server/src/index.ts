@@ -1,12 +1,18 @@
+import 'dotenv/config';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
 import websocket from '@fastify/websocket';
+import multipart from '@fastify/multipart';
+import fastifyStatic from '@fastify/static';
+import path from 'path';
 
 import { authRoutes } from './routes/auth.js';
 import { roomRoutes } from './routes/room.js';
 import { gameRoutes } from './routes/game.js';
 import { userRoutes } from './routes/user.js';
+import { checkinRoutes } from './routes/checkin.js';
+import { uploadRoutes } from './routes/upload.js';
 import { websocketHandler } from './websocket/index.js';
 
 const fastify = Fastify({
@@ -42,11 +48,26 @@ fastify.decorate('authenticate', async function (request: import('fastify').Fast
 
 await fastify.register(websocket);
 
+// 文件上传插件
+await fastify.register(multipart, {
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+});
+
+// 静态文件服务（用于访问上传的文件）
+await fastify.register(fastifyStatic, {
+  root: path.join(process.cwd(), 'uploads'),
+  prefix: '/uploads/',
+});
+
 // 注册路由
 await fastify.register(authRoutes, { prefix: '/api/auth' });
 await fastify.register(roomRoutes, { prefix: '/api/rooms' });
 await fastify.register(gameRoutes, { prefix: '/api/game' });
 await fastify.register(userRoutes, { prefix: '/api/users' });
+await fastify.register(checkinRoutes, { prefix: '/api/checkin' });
+await fastify.register(uploadRoutes, { prefix: '/api/upload' });
 
 // WebSocket 处理
 await fastify.register(websocketHandler, { prefix: '/ws' });

@@ -1,0 +1,442 @@
+// 个人中心页面 - 基于设计稿
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #0D1117;
+}
+
+// 头部用户信息 - 设计稿375×2
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;  // 20 × 2
+  gap: 32px;  // 16 × 2
+  box-sizing: border-box;
+}
+
+.avatar-large {
+  width: 160px;  // 80 × 2
+  height: 160px;
+  background-color: #21262D;
+  border-radius: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-icon {
+  width: 80px;  // 40 × 2
+  height: 80px;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 80px;
+}
+
+// 头像按钮
+.avatar-btn {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  line-height: normal !important;
+
+  &::after {
+    display: none;
+  }
+}
+
+.avatar-large {
+  position: relative;
+
+  &.uploading {
+    opacity: 0.6;
+  }
+}
+
+.avatar-edit-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;  // 24 × 2
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  border-radius: 0 0 80px 80px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+.edit-text {
+  font-size: 20px;  // 10 × 2
+  color: #FFFFFF;
+}
+
+.nickname {
+  font-size: 40px;  // 20 × 2
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.level-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;  // 6 × 2
+  background-color: #D4AF3730;
+  padding: 12px 24px;  // [6,12] × 2
+  border-radius: 24px;  // 12 × 2
+}
+
+.level-icon {
+  width: 28px;  // 14 × 2
+  height: 28px;
+}
+
+.level-text {
+  font-size: 24px;  // 12 × 2
+  font-weight: 600;
+  color: #D4AF37;
+}
+
+// 资产卡片 - 设计稿375×2
+.assets-wrapper {
+  padding: 0 40px;  // [0,20] × 2
+}
+
+.assets-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #1C2128;
+  padding: 32px 40px;  // [16,20] × 2
+  border-radius: 24px;  // 12 × 2
+  height: 160px;  // 80 × 2
+  box-sizing: border-box;
+}
+
+.asset-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;  // 4 × 2
+}
+
+.asset-value {
+  font-size: 40px;  // 20 × 2
+  font-weight: 700;
+
+  &.chips {
+    color: #D4AF37;
+  }
+
+  &.games {
+    color: #58A6FF;
+  }
+
+  &.winrate {
+    color: #2EA043;
+  }
+}
+
+.asset-label {
+  font-size: 24px;  // 12 × 2
+  color: #8B949E;
+}
+
+.asset-divider {
+  width: 2px;  // 1 × 2
+  height: 80px;  // 40 × 2
+  background-color: #30363D;
+}
+
+// 签到卡片 - 设计稿375×2
+.checkin-wrapper {
+  padding: 24px 40px;  // [12,20] × 2
+}
+
+.checkin-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #D4AF3720;
+  padding: 0 32px;  // [0,16] × 2
+  height: 120px;  // 60 × 2
+  border-radius: 24px;  // 12 × 2
+  box-sizing: border-box;
+}
+
+.checkin-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;  // 12 × 2
+}
+
+.checkin-icon {
+  width: 48px;  // 24 × 2
+  height: 48px;
+}
+
+.checkin-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;  // 2 × 2
+}
+
+.checkin-title {
+  font-size: 28px;  // 14 × 2
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.checkin-desc {
+  font-size: 24px;  // 12 × 2
+  color: #8B949E;
+}
+
+.checkin-btn {
+  width: 140px;  // 70 × 2
+  height: 64px;  // 32 × 2
+  background-color: #D4AF37;
+  border-radius: 32px;  // 16 × 2
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.checked {
+    background-color: #30363D;
+
+    .checkin-btn-text {
+      color: #8B949E;
+    }
+  }
+}
+
+.checkin-btn-text {
+  font-size: 26px;  // 13 × 2
+  font-weight: 600;
+  color: #0D1117;
+}
+
+// 功能菜单 - 设计稿375×2
+.menu-wrapper {
+  padding: 16px 40px;  // [8,20] × 2
+}
+
+.menu-title {
+  display: block;
+  font-size: 28px;  // 14 × 2
+  font-weight: 600;
+  color: #8B949E;
+  margin-bottom: 16px;  // 8 × 2
+}
+
+.menu-list {
+  background-color: #1C2128;
+  border-radius: 24px;  // 12 × 2
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;  // [0,16] × 2
+  height: 104px;  // 52 × 2
+  border-top: 1px solid #30363D;
+  box-sizing: border-box;
+
+  &:first-child {
+    border-top: none;
+  }
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;  // 12 × 2
+}
+
+.menu-icon {
+  width: 40px;  // 20 × 2
+  height: 40px;
+}
+
+.menu-text {
+  font-size: 28px;  // 14 × 2
+  color: #FFFFFF;
+}
+
+.menu-arrow {
+  font-size: 36px;  // 18 × 2
+  color: #484F58;
+}
+
+// 占位
+.spacer {
+  flex: 1;
+}
+
+// 自定义 TabBar - 设计稿375尺寸×2
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0D1117;
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+  padding-bottom: calc(16px + constant(safe-area-inset-bottom));
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+}
+
+.tab-bar-inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #161B22;
+  border-radius: 64px;
+  width: 716px;  // 358 × 2
+  height: 128px; // 64 × 2
+  box-sizing: border-box;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 160px;  // 80 × 2
+  height: 96px;  // 48 × 2
+  border-radius: 48px;
+  box-sizing: border-box;
+
+  &.active {
+    background-color: #D4AF37;
+
+    .tab-label {
+      color: #0D1117;
+    }
+  }
+}
+
+.tab-icon {
+  width: 40px;  // 20 × 2
+  height: 40px;
+}
+
+.tab-label {
+  font-size: 24px; // 12 × 2
+  color: #8B949E;
+
+  .tab-item.active & {
+    color: #0D1117;
+  }
+}
+
+// 弹窗遮罩
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+// 签到成功弹窗 - 设计稿 300×2=600
+.checkin-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;  // 300 × 2
+  padding: 48px;  // 24 × 2
+  gap: 32px;  // 16 × 2
+  background-color: #1C2128;
+  border-radius: 32px;  // 16 × 2
+  border: 2px solid #30363D;  // 1 × 2
+  box-sizing: border-box;
+}
+
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;  // 64 × 2
+  height: 128px;
+  background-color: #2EA04330;
+  border-radius: 64px;  // 32 × 2
+}
+
+.success-icon {
+  width: 60px;  // 40 × 2
+  height: 60px;
+}
+
+.dialog-title {
+  font-size: 40px;  // 20 × 2
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.reward-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;  // 8 × 2
+}
+
+.reward-label {
+  font-size: 28px;  // 14 × 2
+  color: #8B949E;
+}
+
+.reward-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;  // 8 × 2
+}
+
+.reward-icon {
+  width: 48px;  // 24 × 2
+  height: 48px;
+}
+
+.reward-value {
+  font-size: 56px;  // 28 × 2
+  font-weight: 700;
+  color: #D4AF37;
+}
+
+.next-hint {
+  font-size: 24px;  // 12 × 2
+  color: #8B949E;
+}
+
+.confirm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88px;  // 44 × 2
+  background-color: #D4AF37;
+  border-radius: 44px;  // 22 × 2
+  box-sizing: border-box;
+}
+
+.confirm-text {
+  font-size: 32px;  // 16 × 2
+  font-weight: 600;
+  color: #0D1117;
+}

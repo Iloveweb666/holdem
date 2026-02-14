@@ -105,7 +105,7 @@ type GamePhase = 'preflop' | 'flop' | 'turn' | 'river' | 'showdown';
 
 ## 设计系统
 
-深色赌场主题（定义在 `apps/web/src/index.css`）:
+深色牌局主题（定义在 `apps/web/src/index.css`）:
 - 背景色: 深黑 `rgb(18, 18, 20)`
 - 主色调: 金色 `rgb(212, 175, 55)`
 - 强调色: 扑克绿 `rgb(53, 101, 77)`

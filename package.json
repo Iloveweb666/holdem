@@ -13,9 +13,11 @@
     "dev": "pnpm run --parallel --filter \"./apps/*\" dev",
     "dev:web": "pnpm --filter @holdem/web dev",
     "dev:server": "pnpm --filter @holdem/server dev",
+    "dev:miniapp": "pnpm --filter @holdem/miniapp dev:weapp",
     "build": "pnpm run -r build",
     "build:web": "pnpm --filter @holdem/web build",
     "build:server": "pnpm --filter @holdem/server build",
+    "build:miniapp": "pnpm --filter @holdem/miniapp build:weapp",
     "typecheck": "pnpm run -r typecheck",
     "lint": "pnpm run -r lint",
     "lint:fix": "pnpm run -r lint:fix",
@@ -25,6 +27,7 @@
     "docker:down": "docker-compose -f docker/docker-compose.yml down"
   },
   "devDependencies": {
+    "@types/minimatch": "^6.0.0",
     "@types/node": "^24.10.1",
     "rimraf": "^6.0.0",
     "typescript": "~5.9.3"

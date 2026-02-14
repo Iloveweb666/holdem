@@ -14,11 +14,23 @@ datasource db {
 
 model User {
   id           String    @id @default(cuid())
-  email        String    @unique
-  passwordHash String    @map("password_hash")
+
+  // 微信登录
+  openid       String?   @unique
+  unionid      String?   @unique
+
+  // 保留可选邮箱登录（用于测试/后台）
+  email        String?   @unique
+  passwordHash String?   @map("password_hash")
+
   name         String
   avatar       String?
   chips        Int       @default(10000)
+
+  // 签到相关
+  consecutiveCheckins Int       @default(0) @map("consecutive_checkins")
+  lastCheckinDate     DateTime? @map("last_checkin_date")
+
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
   lastLoginAt  DateTime? @map("last_login_at")
@@ -48,9 +60,11 @@ model UserStatistics {
 model Room {
   id         String     @id @default(cuid())
   name       String
+  code       String     @unique  // 6位房间号，用于搜索
+  ownerId    String     @map("owner_id")  // 房主ID
   smallBlind Int        @map("small_blind")
   bigBlind   Int        @map("big_blind")
-  maxPlayers Int        @default(6) @map("max_players")
+  maxPlayers Int        @default(8) @map("max_players")
   minBuyIn   Int?       @map("min_buy_in")
   maxBuyIn   Int?       @map("max_buy_in")
   status     RoomStatus @default(WAITING)
@@ -60,6 +74,8 @@ model Room {
   players RoomPlayer[]
   games   Game[]
 
+  @@index([status])
+  @@index([code])
   @@map("rooms")
 }
 
@@ -70,13 +86,15 @@ model RoomPlayer {
   userId    String       @map("user_id")
   user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   chips     Int
-  seatIndex Int          @map("seat_index")
-  status    PlayerStatus @default(WAITING)
+  seatIndex Int?         @map("seat_index")  // null = 站立观战
+  status    PlayerStatus @default(STANDING)
+  isReady   Boolean      @default(false) @map("is_ready")  // 是否准备下一局
   joinedAt  DateTime     @default(now()) @map("joined_at")
   leftAt    DateTime?    @map("left_at")
 
   @@unique([roomId, seatIndex])
   @@unique([roomId, userId])
+  @@index([userId])
   @@map("room_players")
 }
 
@@ -86,18 +104,42 @@ model Game {
   id               String    @id @default(cuid())
   roomId           String    @map("room_id")
   room             Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  roundNumber      Int       @default(1) @map("round_number")  // 房间内的第几局
   phase            GamePhase @default(PREFLOP)
   pot              Int       @default(0)
   communityCards   String[]  @map("community_cards")
   dealerIndex      Int       @map("dealer_index")
+  smallBlindIndex  Int       @map("small_blind_index")
+  bigBlindIndex    Int       @map("big_blind_index")
   currentPlayerIdx Int       @map("current_player_idx")
+  currentBet       Int       @default(0) @map("current_bet")  // 当前轮最大下注
   startedAt        DateTime  @default(now()) @map("started_at")
   endedAt          DateTime? @map("ended_at")
 
   actions GameAction[]
+  players GamePlayer[]
   results GameResult[]
 
+  @@index([roomId, startedAt])
   @@map("games")
+}
+
+// 游戏中的玩家状态（每局独立）
+model GamePlayer {
+  id        String       @id @default(cuid())
+  gameId    String       @map("game_id")
+  game      Game         @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  userId    String       @map("user_id")
+  seatIndex Int          @map("seat_index")
+  holeCards String[]     @map("hole_cards")  // 底牌 ["As", "Kh"]
+  chips     Int                               // 本局开始时的筹码
+  bet       Int          @default(0)          // 本轮已下注
+  totalBet  Int          @default(0) @map("total_bet")  // 本局总下注
+  status    PlayerStatus @default(ACTIVE)
+
+  @@unique([gameId, seatIndex])
+  @@unique([gameId, userId])
+  @@map("game_players")
 }
 
 model GameAction {
@@ -106,10 +148,12 @@ model GameAction {
   game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
   userId     String     @map("user_id")
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  phase      GamePhase              // 操作时的游戏阶段
   actionType ActionType @map("action_type")
   amount     Int?
   createdAt  DateTime   @default(now()) @map("created_at")
 
+  @@index([gameId, createdAt])
   @@map("game_actions")
 }
 
@@ -132,11 +176,13 @@ enum RoomStatus {
 }
 
 enum PlayerStatus {
-  WAITING
-  ACTIVE
-  FOLDED
-  ALL_IN
-  DISCONNECTED
+  STANDING     // 站立观战
+  WAITING      // 入座等待
+  ACTIVE       // 游戏中
+  FOLDED       // 已弃牌
+  ALL_IN       // 全下
+  SPECTATING   // 入座观战（游戏中入座）
+  DISCONNECTED // 断开连接
 }
 
 enum GamePhase {
@@ -148,6 +194,7 @@ enum GamePhase {
 }
 
 enum ActionType {
+  BLIND    // 盲注
   FOLD
   CHECK
   CALL

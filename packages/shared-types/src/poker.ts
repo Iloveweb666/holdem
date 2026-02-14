@@ -9,6 +9,16 @@ export type RoomStatus = 'waiting' | 'playing' | 'finished';
 export type GamePhase = 'preflop' | 'flop' | 'turn' | 'river' | 'showdown';
 export type PlayerAction = 'fold' | 'check' | 'call' | 'raise' | 'all-in';
 
+/**
+ * 牌桌位置（按行动顺序）
+ * UTG = Under The Gun 枪口位（大盲后第一个行动）
+ * CO = Cut Off 关煞位（按钮右边）
+ * BTN = Button 庄家位
+ * SB = Small Blind 小盲
+ * BB = Big Blind 大盲
+ */
+export type TablePosition = 'UTG' | 'UTG+1' | 'UTG+2' | 'MP' | 'MP+1' | 'CO' | 'BTN' | 'SB' | 'BB';
+
 // ============ 玩家相关 ============
 
 export type SeatPosition = 'bottom' | 'top' | 'left' | 'right';
@@ -25,6 +35,7 @@ export interface Player {
   status?: PlayerStatus;
   seatIndex?: number;
   position?: SeatPosition;
+  tablePosition?: TablePosition; // 牌桌位置（UTG/CO/BTN/SB/BB等）
 }
 
 export interface PlayerSession extends Player {

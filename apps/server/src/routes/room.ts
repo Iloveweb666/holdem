@@ -48,8 +48,9 @@ export const roomRoutes: FastifyPluginAsync = async (fastify) => {
   // 创建房间（需要认证）
   fastify.post<{
     Body: CreateRoomRequest;
-    Reply: ApiResponse<{ roomId: string }>;
+    Reply: ApiResponse<{ roomId: string; code: string }>;
   }>('/', { preHandler: [authenticate] }, async (request, reply) => {
+    const payload = request.user as { id: string };
     const { name, smallBlind, bigBlind, maxPlayers, minBuyIn, maxBuyIn } = request.body;
 
     // 验证输入
@@ -63,6 +64,7 @@ export const roomRoutes: FastifyPluginAsync = async (fastify) => {
     try {
       const room = await roomService.createRoom({
         name,
+        ownerId: payload.id,
         smallBlind,
         bigBlind,
         maxPlayers,
@@ -72,9 +74,16 @@ export const roomRoutes: FastifyPluginAsync = async (fastify) => {
 
       return reply.code(201).send({
         success: true,
-        data: { roomId: room.id },
+        data: { roomId: room.id, code: room.code },
       });
     } catch (err) {
+      const error = err as Error;
+      if (error.message === 'FAILED_TO_GENERATE_ROOM_CODE') {
+        return reply.code(500).send({
+          success: false,
+          error: { code: 'ROOM_CODE_ERROR', message: 'Failed to generate room code' },
+        });
+      }
       fastify.log.error(err);
       return reply.code(500).send({
         success: false,
@@ -87,7 +96,7 @@ export const roomRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.post<{
     Params: { id: string };
     Body: JoinRoomRequest;
-    Reply: ApiResponse<{ success: boolean; seatIndex: number }>;
+    Reply: ApiResponse<{ success: boolean; seatIndex: number; reconnected?: boolean }>;
   }>('/:id/join', { preHandler: [authenticate] }, async (request, reply) => {
     const payload = request.user as { id: string };
     const { buyIn, seatIndex } = request.body;
@@ -105,6 +114,7 @@ export const roomRoutes: FastifyPluginAsync = async (fastify) => {
       const error = err as Error;
       const errorMap: Record<string, { code: number; message: string }> = {
         ROOM_NOT_FOUND: { code: 404, message: 'Room not found' },
+        ROOM_CLOSED: { code: 400, message: 'Room has been closed' },
         ROOM_FULL: { code: 400, message: 'Room is full' },
         ALREADY_IN_ROOM: { code: 400, message: 'Already in this room' },
         BUY_IN_TOO_LOW: { code: 400, message: 'Buy-in amount too low' },

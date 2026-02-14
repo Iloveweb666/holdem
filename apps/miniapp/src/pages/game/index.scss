@@ -1,0 +1,582 @@
+// 游戏页面 - 基于设计稿（横屏 844 x 390）
+// 横屏模式下使用 1x 尺寸，rpx 单位
+
+.game-page {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1A3A4A;
+  overflow: hidden;
+}
+
+// ============ 牌桌区域 ============
+.table-area {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+.table-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// ============ 座位 ============
+.seat {
+  position: absolute;
+  width: 60rpx;
+  height: 70rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+// 空座位样式
+.empty-seat {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 16rpx;
+  border: 1rpx solid #D4AF37;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat-number {
+  font-size: 14rpx;
+  color: #D4AF37;
+}
+
+// 有玩家的座位
+.player-seat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rpx;
+  position: relative;
+}
+
+// 玩家头像
+.player-avatar {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 18rpx;
+  background-color: #21262D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+
+  .avatar-icon {
+    font-size: 18rpx;
+    color: #8B949E;
+  }
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+  }
+
+  // 自己的头像 - 金色
+  &.self {
+    background-color: #D4AF37;
+    .avatar-icon {
+      color: #0D1117;
+    }
+  }
+
+  // 说话中 - 绿色边框
+  &.speaking {
+    border: 2rpx solid #2EA043;
+  }
+
+  // 已弃牌 - 红色半透明
+  &.folded {
+    background-color: #F8514940;
+    border: 2rpx solid #F85149;
+    .avatar-icon {
+      color: #F85149;
+    }
+  }
+}
+
+// 玩家名字行
+.player-name-row {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.player-name {
+  font-size: 9rpx;
+  color: #FFFFFF;
+  max-width: 40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-seat-num {
+  font-size: 8rpx;
+  color: #D4AF3780;
+}
+
+.player-chips {
+  font-size: 10rpx;
+  font-weight: 600;
+  color: #D4AF37;
+}
+
+// 庄家标识
+.dealer-badge {
+  position: absolute;
+  top: -4rpx;
+  right: -4rpx;
+  width: 16rpx;
+  height: 16rpx;
+  background-color: #D4AF37;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rpx;
+  font-weight: 700;
+  color: #0D1117;
+}
+
+// 下注筹码
+.bet-chip {
+  position: absolute;
+  bottom: -12rpx;
+  padding: 2rpx 6rpx;
+  background-color: #21262D;
+  border-radius: 8rpx;
+  font-size: 10rpx;
+  color: #D4AF37;
+}
+
+// 状态标识
+.status-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rpx 6rpx;
+  border-radius: 4rpx;
+  font-size: 8rpx;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 20;
+
+  &.folded {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #8B949E;
+  }
+
+  &.all-in {
+    background-color: #EF4444;
+    color: #FFFFFF;
+  }
+}
+
+// ============ 底池信息 ============
+.pot-info {
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  z-index: 5;
+}
+
+.pot-label {
+  font-size: 12rpx;
+  color: #8B949E;
+}
+
+.pot-value {
+  font-size: 16rpx;
+  font-weight: 700;
+  color: #D4AF37;
+}
+
+// ============ 公共牌区域 ============
+.community-cards {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  z-index: 5;
+}
+
+.suit-left,
+.suit-right {
+  font-size: 18rpx;
+  color: #D4AF37;
+}
+
+.card-slot {
+  width: 32rpx;
+  height: 44rpx;
+  border-radius: 3rpx;
+  border: 1rpx solid #D4AF3760;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.card-face {
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  border-radius: 2rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &.red {
+    .card-rank, .card-suit {
+      color: #E53935;
+    }
+  }
+
+  &.black {
+    .card-rank, .card-suit {
+      color: #1A1A1A;
+    }
+  }
+}
+
+.card-rank {
+  font-size: 14rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.card-suit {
+  font-size: 12rpx;
+  line-height: 1;
+}
+
+// ============ 底部操作栏 ============
+.bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 70rpx;
+  background-color: #0D1117E0;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+// 我的信息
+.my-info {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.my-avatar {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  &.gray {
+    background-color: #21262D;
+    .avatar-icon {
+      font-size: 24rpx;
+      color: #8B949E;
+    }
+  }
+
+  &.gold {
+    background-color: #D4AF37;
+    .avatar-icon {
+      font-size: 24rpx;
+      color: #0D1117;
+    }
+  }
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.my-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.my-name {
+  font-size: 14rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.my-chips-row {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.chips-icon {
+  font-size: 12rpx;
+}
+
+.chips-value {
+  font-size: 12rpx;
+  color: #D4AF37;
+}
+
+// 状态徽章（底部栏）
+.status-badge-bar {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  padding: 6rpx 12rpx;
+  background-color: #8B949E20;
+  border-radius: 12rpx;
+}
+
+.status-icon {
+  font-size: 14rpx;
+}
+
+.status-text {
+  font-size: 12rpx;
+  color: #8B949E;
+}
+
+// 操作区域
+.action-area {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+// 选座入座按钮
+.sit-down-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  height: 44rpx;
+  padding: 0 20rpx;
+  background-color: #D4AF37;
+  border-radius: 22rpx;
+}
+
+.sit-icon {
+  font-size: 18rpx;
+  color: #0D1117;
+}
+
+.sit-text {
+  font-size: 14rpx;
+  font-weight: 600;
+  color: #0D1117;
+}
+
+// 开始游戏按钮
+.start-btn {
+  height: 44rpx;
+  padding: 0 24rpx;
+  background-color: #D4AF37;
+  border-radius: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-text {
+  font-size: 14rpx;
+  font-weight: 600;
+  color: #0D1117;
+}
+
+// 等待徽章
+.waiting-badge {
+  padding: 8rpx 16rpx;
+  background-color: #21262D;
+  border-radius: 12rpx;
+}
+
+.waiting-text {
+  font-size: 12rpx;
+  color: #8B949E;
+}
+
+// 操作按钮组
+.action-buttons {
+  display: flex;
+  gap: 12rpx;
+}
+
+.action-btn {
+  height: 44rpx;
+  padding: 0 16rpx;
+  border-radius: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14rpx;
+  font-weight: 600;
+
+  // 弃牌 - 红色边框
+  &.fold {
+    background-color: #F8514920;
+    border: 1rpx solid #F85149;
+    color: #F85149;
+    min-width: 70rpx;
+  }
+
+  // 过牌/跟注 - 蓝色边框
+  &.check,
+  &.call {
+    background-color: #58A6FF20;
+    border: 1rpx solid #58A6FF;
+    color: #58A6FF;
+    min-width: 90rpx;
+  }
+
+  // 加注 - 金色实心
+  &.raise {
+    background-color: #D4AF37;
+    color: #0D1117;
+    min-width: 90rpx;
+  }
+}
+
+// 我的手牌
+.my-cards {
+  display: flex;
+  gap: 4rpx;
+}
+
+.my-card {
+  width: 40rpx;
+  height: 56rpx;
+  background-color: #FFFFFF;
+  border-radius: 5rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.3);
+
+  &.red {
+    .my-card-rank, .my-card-suit {
+      color: #E53935;
+    }
+  }
+
+  &.black {
+    .my-card-rank, .my-card-suit {
+      color: #1A1A1A;
+    }
+  }
+}
+
+.my-card-rank {
+  font-size: 16rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.my-card-suit {
+  font-size: 14rpx;
+  line-height: 1;
+}
+
+// ============ 弹窗 ============
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 310rpx;
+  background-color: #21262D;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.modal-title {
+  font-size: 18rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.modal-close {
+  font-size: 24rpx;
+  color: #8B949E;
+}
+
+.modal-content {
+  margin-bottom: 16rpx;
+}
+
+.modal-text {
+  font-size: 14rpx;
+  color: #8B949E;
+  text-align: center;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12rpx;
+}
+
+.btn {
+  flex: 1;
+  height: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22rpx;
+  font-size: 15rpx;
+
+  &.btn-cancel {
+    background-color: #30363D;
+    color: #FFFFFF;
+  }
+
+  &.btn-danger {
+    background-color: #EF4444;
+    color: #FFFFFF;
+  }
+}

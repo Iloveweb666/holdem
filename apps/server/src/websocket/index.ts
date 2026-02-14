@@ -1,6 +1,7 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { WebSocket, RawData } from 'ws';
 import type { WsMessage, GameAction } from '@holdem/shared-types';
+import { roomService } from '../services/room.service.js';
 
 interface Client {
   ws: WebSocket;
@@ -53,9 +54,18 @@ export const websocketHandler: FastifyPluginAsync = async (fastify) => {
     });
 
     // 连接关闭
-    socket.on('close', () => {
+    socket.on('close', async () => {
       clients.delete(clientId);
       roomClients.get(roomId)?.delete(clientId);
+
+      // 调用离开房间服务，更新数据库
+      try {
+        await roomService.leaveRoom(roomId, playerId);
+        console.log(`Player ${playerId} left room ${roomId} via WebSocket disconnect`);
+      } catch (err) {
+        // 玩家可能已经通过 API 离开，忽略错误
+        console.log(`Player ${playerId} was not in room ${roomId} (already left)`);
+      }
 
       broadcastToRoom(roomId, {
         type: 'PLAYER_LEFT',

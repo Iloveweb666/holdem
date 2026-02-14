@@ -98,11 +98,16 @@ export const gameRoutes: FastifyPluginAsync = async (fastify) => {
     Reply: ApiResponse<{ gameId: string }>;
   }>('/:roomId/start', { preHandler: [authenticate] }, async (request, reply) => {
     try {
-      const game = await gameService.startGame(request.params.roomId);
+      const result = await gameService.startGame(request.params.roomId);
 
       return {
         success: true,
-        data: { gameId: game.id },
+        data: {
+          gameId: result.game.id,
+          dealerIndex: result.dealerIndex,
+          smallBlindIndex: result.smallBlindIndex,
+          bigBlindIndex: result.bigBlindIndex,
+        },
       };
     } catch (err) {
       const error = err as Error;
