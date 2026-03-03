@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { request } from '@/services/request';
+import { callCloud, mapId } from '@/services/cloud';
 import type { Room } from '@holdem/shared-types';
 
 interface RoomListState {
@@ -16,11 +16,8 @@ interface RoomListState {
   fetchRooms: (refresh?: boolean) => Promise<void>;
   createRoom: (data: {
     name: string;
-    smallBlind: number;
     bigBlind: number;
-    maxPlayers?: number;
-    minBuyIn?: number;
-    maxBuyIn?: number;
+    buyIn: number;
   }) => Promise<{ roomId: string; code: string } | null>;
   joinRoom: (roomId: string, buyIn: number, seatIndex?: number) => Promise<boolean>;
   leaveRoom: (roomId: string) => Promise<boolean>;
@@ -29,40 +26,42 @@ interface RoomListState {
   clearCurrentRoom: () => void;
 }
 
+function mapRoom(raw: any): Room {
+  return {
+    ...mapId(raw),
+    name: raw.name,
+    code: raw.code,
+    smallBlind: raw.smallBlind,
+    bigBlind: raw.bigBlind,
+    maxPlayers: raw.maxPlayers,
+    playersCount: raw.currentPlayers ?? raw.playersCount ?? 0,
+    status: (raw.status || 'WAITING').toLowerCase(),
+  } as Room;
+}
+
 export const useRoomStore = create<RoomListState>((set, get) => ({
   rooms: [],
   isLoading: false,
   page: 1,
-  hasMore: true,
+  hasMore: false,
   currentRoom: null,
   currentRoomId: null,
 
-  fetchRooms: async (refresh = false) => {
-    const { isLoading, page, hasMore } = get();
-    if (isLoading || (!refresh && !hasMore)) return;
+  fetchRooms: async (_refresh = false) => {
+    const { isLoading } = get();
+    if (isLoading) return;
 
-    const targetPage = refresh ? 1 : page;
     set({ isLoading: true });
 
     try {
-      const response = await request<{
-        items: Room[];
-        total: number;
-        page: number;
-        pageSize: number;
-        hasMore: boolean;
-      }>({
-        url: '/api/rooms',
-        method: 'GET',
-        data: { page: targetPage, pageSize: 10 },
-      });
+      const response = await callCloud<{ rooms: any[] }>('room', 'list');
 
       if (response.success && response.data) {
-        const { items, hasMore: more } = response.data;
+        const rooms = response.data.rooms.map(mapRoom);
         set({
-          rooms: refresh ? items : [...get().rooms, ...items],
-          page: targetPage + 1,
-          hasMore: more,
+          rooms,
+          page: 1,
+          hasMore: false,
           isLoading: false,
         });
       } else {
@@ -76,16 +75,17 @@ export const useRoomStore = create<RoomListState>((set, get) => ({
 
   createRoom: async (data) => {
     try {
-      const response = await request<{ roomId: string; code: string }>({
-        url: '/api/rooms',
-        method: 'POST',
-        data,
+      const response = await callCloud<{ room: any }>('room', 'create', {
+        name: data.name,
+        bigBlind: data.bigBlind,
+        buyIn: data.buyIn,
       });
 
       if (response.success && response.data) {
-        // 刷新房间列表
+        const room = mapRoom(response.data.room);
+        // Refresh room list in background
         get().fetchRooms(true);
-        return response.data;
+        return { roomId: room.id, code: (room as any).code || '' };
       }
       return null;
     } catch (error) {
@@ -94,12 +94,11 @@ export const useRoomStore = create<RoomListState>((set, get) => ({
     }
   },
 
-  joinRoom: async (roomId, buyIn, seatIndex) => {
+  joinRoom: async (roomId, buyIn, _seatIndex?) => {
     try {
-      const response = await request<{ success: boolean; seatIndex: number }>({
-        url: `/api/rooms/${roomId}/join`,
-        method: 'POST',
-        data: { buyIn, seatIndex },
+      const response = await callCloud<{ room: any; players: any[] }>('room', 'join', {
+        roomId,
+        buyIn,
       });
 
       if (response.success) {
@@ -115,10 +114,7 @@ export const useRoomStore = create<RoomListState>((set, get) => ({
 
   leaveRoom: async (roomId) => {
     try {
-      const response = await request<{ success: boolean; returnedChips: number }>({
-        url: `/api/rooms/${roomId}/leave`,
-        method: 'POST',
-      });
+      const response = await callCloud<{ success: boolean }>('room', 'leave', { roomId });
 
       if (response.success) {
         set({ currentRoomId: null, currentRoom: null });
@@ -133,13 +129,15 @@ export const useRoomStore = create<RoomListState>((set, get) => ({
 
   fetchRoomDetail: async (roomId) => {
     try {
-      const response = await request<Room>({
-        url: `/api/rooms/${roomId}`,
-        method: 'GET',
-      });
+      // No dedicated endpoint — fetch all rooms and filter
+      const response = await callCloud<{ rooms: any[] }>('room', 'list');
 
       if (response.success && response.data) {
-        set({ currentRoom: response.data, currentRoomId: roomId });
+        const raw = response.data.rooms.find((r: any) => (r._id || r.id) === roomId);
+        if (raw) {
+          const room = mapRoom(raw);
+          set({ currentRoom: room, currentRoomId: roomId });
+        }
       }
     } catch (error) {
       console.error('Fetch room detail error:', error);

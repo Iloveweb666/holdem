@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, Image, Button } from '@tarojs/components';
 import Taro, { useDidShow } from '@tarojs/taro';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { checkinApi, request } from '@/services/request';
+import { checkinApi, callCloud } from '@/services/cloud';
 import homeActive from '@/assets/images/home-active.png';
 import homeInactive from '@/assets/images/home-inactive.png';
 import myActive from '@/assets/images/my-active.png';
@@ -125,11 +125,7 @@ export default function Profile() {
 
       if (finalAvatarUrl) {
         // 更新用户头像
-        await request({
-          url: '/api/auth/profile',
-          method: 'POST',
-          data: { avatar: finalAvatarUrl },
-        });
+        await callCloud('user', 'updateProfile', { avatar: finalAvatarUrl });
 
         // 刷新用户信息
         await refreshUser();

@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { View, Text, Button, Image, Input } from '@tarojs/components';
-import Taro from '@tarojs/taro';
-import { useAuthStore } from '@/stores/useAuthStore';
-import { request } from '@/services/request';
-import wxIcon from '@/assets/images/wxIcon.png';
-import avatarIconLg from '@/assets/images/avatarIconLg.png';
+import { useState } from "react";
+import { View, Text, Button, Image, Input } from "@tarojs/components";
+import Taro from "@tarojs/taro";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { callCloud } from "@/services/cloud";
+import wxIcon from "@/assets/images/wxIcon.png";
+import avatarIconLg from "@/assets/images/avatarIconLg.png";
 
-import './index.scss';
+import "./index.scss";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [nickname, setNickname] = useState("");
   const login = useAuthStore((state) => state.login);
   const { refreshUser } = useAuthStore();
 
@@ -30,13 +30,14 @@ export default function Login() {
 
       // 检查是否已设置头像和昵称（默认昵称通常是"微信用户"或以"玩家"开头）
       const hasAvatar = !!currentUser?.avatar;
-      const hasCustomName = currentUser?.name &&
-        !currentUser.name.startsWith('玩家') &&
-        currentUser.name !== '微信用户';
+      const hasCustomName =
+        currentUser?.name &&
+        !currentUser.name.startsWith("玩家") &&
+        currentUser.name !== "微信用户";
 
       if (hasAvatar && hasCustomName) {
         // 已完善资料，直接进入大厅
-        Taro.redirectTo({ url: '/pages/lobby/index' });
+        Taro.redirectTo({ url: "/pages/lobby/index" });
       } else {
         // 需要完善资料
         setShowProfileSetup(true);
@@ -61,7 +62,7 @@ export default function Login() {
 
     // 至少需要昵称
     if (!nickname.trim()) {
-      Taro.showToast({ title: '请输入昵称', icon: 'none' });
+      Taro.showToast({ title: "请输入昵称", icon: "none" });
       return;
     }
 
@@ -69,7 +70,7 @@ export default function Login() {
 
     try {
       // 如果有头像，上传到微信云存储
-      let finalAvatarUrl = '';
+      let finalAvatarUrl = "";
       if (avatarUrl && Taro.cloud) {
         const cloudPath = `avatars/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
 
@@ -85,27 +86,23 @@ export default function Login() {
       }
 
       // 更新用户资料
-      await request({
-        url: '/api/auth/profile',
-        method: 'POST',
-        data: {
-          name: nickname.trim(),
-          avatar: finalAvatarUrl || undefined,
-        },
+      await callCloud('user', 'updateProfile', {
+        name: nickname.trim(),
+        avatar: finalAvatarUrl || undefined,
       });
 
       // 刷新用户信息
       await refreshUser();
 
-      Taro.showToast({ title: '设置成功', icon: 'success' });
+      Taro.showToast({ title: "设置成功", icon: "success" });
 
       // 跳转到大厅
       setTimeout(() => {
-        Taro.redirectTo({ url: '/pages/lobby/index' });
+        Taro.redirectTo({ url: "/pages/lobby/index" });
       }, 500);
     } catch (error) {
-      console.error('Profile update error:', error);
-      Taro.showToast({ title: '设置失败', icon: 'none' });
+      console.error("Profile update error:", error);
+      Taro.showToast({ title: "设置失败", icon: "none" });
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +110,7 @@ export default function Login() {
 
   // 跳过设置
   const handleSkip = () => {
-    Taro.redirectTo({ url: '/pages/lobby/index' });
+    Taro.redirectTo({ url: "/pages/lobby/index" });
   };
 
   // 显示头像昵称设置界面
@@ -132,9 +129,17 @@ export default function Login() {
           >
             <View className="avatar-wrapper">
               {avatarUrl ? (
-                <Image className="avatar-img" src={avatarUrl} mode="aspectFill" />
+                <Image
+                  className="avatar-img"
+                  src={avatarUrl}
+                  mode="aspectFill"
+                />
               ) : (
-                <Image className="avatar-placeholder" src={avatarIconLg} mode="aspectFit" />
+                <Image
+                  className="avatar-placeholder"
+                  src={avatarIconLg}
+                  mode="aspectFit"
+                />
               )}
             </View>
           </Button>
@@ -156,12 +161,12 @@ export default function Login() {
           {/* 操作按钮 */}
           <View className="setup-actions">
             <Button
-              className={`complete-btn ${isLoading ? 'loading' : ''}`}
+              className={`complete-btn ${isLoading ? "loading" : ""}`}
               onClick={handleComplete}
               disabled={isLoading}
             >
               <Text className="complete-btn-text">
-                {isLoading ? '保存中...' : '完成设置'}
+                {isLoading ? "保存中..." : "完成设置"}
               </Text>
             </Button>
             <Text className="skip-btn" onClick={handleSkip}>
@@ -187,13 +192,15 @@ export default function Login() {
 
       {/* 微信登录按钮 */}
       <Button
-        className={`wx-login-btn ${isLoading ? 'loading' : ''}`}
+        className={`wx-login-btn ${isLoading ? "loading" : ""}`}
         onClick={handleLogin}
         disabled={isLoading}
       >
         <View className="btn-content">
           <Image className="wx-icon" src={wxIcon} mode="aspectFit" />
-          <Text className="btn-text">{isLoading ? '登录中...' : '微信授权登录'}</Text>
+          <Text className="btn-text">
+            {isLoading ? "登录中..." : "微信授权登录"}
+          </Text>
         </View>
       </Button>
 

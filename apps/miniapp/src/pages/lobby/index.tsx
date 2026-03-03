@@ -81,17 +81,14 @@ export default function Lobby() {
     const finalBuyIn = customBuyIn ? parseInt(customBuyIn) : createForm.buyIn;
     const result = await createRoom({
       name: createForm.name,
-      smallBlind: createForm.bigBlind / 2,
       bigBlind: createForm.bigBlind,
-      maxPlayers: 6,
+      buyIn: finalBuyIn,
     });
 
     if (result) {
       setShowCreateModal(false);
-      const success = await joinRoom(result.roomId, finalBuyIn);
-      if (success) {
-        Taro.navigateTo({ url: `/pages/game/index?roomId=${result.roomId}` });
-      }
+      // Backend auto-joins creator at seat 0, navigate directly
+      Taro.navigateTo({ url: `/pages/game/index?roomId=${result.roomId}` });
     }
   };
 

@@ -1,5 +1,5 @@
 {
-  "version": "2.7",
+  "version": "2.8",
   "children": [
     {
       "type": "frame",
@@ -3248,9 +3248,19 @@
                   "type": "frame",
                   "id": "8Z4d3",
                   "name": "nameRow",
-                  "gap": 2,
+                  "gap": 3,
                   "alignItems": "center",
                   "children": [
+                    {
+                      "type": "text",
+                      "id": "tQEpH",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#2",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
                     {
                       "type": "text",
                       "id": "ZmPkz",
@@ -3263,25 +3273,15 @@
                     },
                     {
                       "type": "text",
-                      "id": "tQEpH",
-                      "name": "playerName",
-                      "fill": "#FFFFFF",
-                      "content": "玩家",
+                      "id": "MjBXk",
+                      "name": "avDefaultChips",
+                      "fill": "#D4AF37",
+                      "content": "5,000",
                       "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
+                      "fontSize": 10,
+                      "fontWeight": "600"
                     }
                   ]
-                },
-                {
-                  "type": "text",
-                  "id": "MjBXk",
-                  "name": "avDefaultChips",
-                  "fill": "#D4AF37",
-                  "content": "5,000",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
                 }
               ]
             },
@@ -3324,24 +3324,43 @@
                   ]
                 },
                 {
-                  "type": "text",
-                  "id": "HYyyV",
-                  "name": "avSpeakName",
-                  "fill": "#2EA043",
-                  "content": "发言中",
-                  "fontFamily": "Inter",
-                  "fontSize": 9,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "text",
-                  "id": "6OoPL",
-                  "name": "avSpeakChips",
-                  "fill": "#D4AF37",
-                  "content": "5,000",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
+                  "type": "frame",
+                  "id": "HMrUe",
+                  "name": "nameRow",
+                  "gap": 3,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "nSWmv",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#5",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "0XSDB",
+                      "name": "playerName",
+                      "fill": "#2EA043",
+                      "content": "发言中",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "6OoPL",
+                      "name": "avSpeakChips",
+                      "fill": "#D4AF37",
+                      "content": "5,000",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
                 },
                 {
                   "type": "frame",
@@ -3394,37 +3413,56 @@
                 },
                 {
                   "type": "frame",
-                  "id": "jA16P",
-                  "name": "selfBadge",
-                  "width": 28,
-                  "height": 14,
-                  "fill": "#58A6FF",
-                  "cornerRadius": 7,
-                  "layout": "vertical",
-                  "justifyContent": "center",
+                  "id": "Lbi9O",
+                  "name": "nameRow",
+                  "gap": 3,
                   "alignItems": "center",
                   "children": [
                     {
                       "type": "text",
-                      "id": "Qcbbi",
-                      "name": "selfText",
-                      "fill": "#FFFFFF",
-                      "content": "我",
+                      "id": "hZbSx",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#1",
                       "fontFamily": "Inter",
-                      "fontSize": 9,
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "bqoYP",
+                      "name": "selfBadge",
+                      "width": 28,
+                      "height": 14,
+                      "fill": "#58A6FF",
+                      "cornerRadius": 7,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "lVAiH",
+                          "name": "selfTxt",
+                          "fill": "#FFFFFF",
+                          "content": "我",
+                          "fontFamily": "Inter",
+                          "fontSize": 9,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "XeIRY",
+                      "name": "avSelfChips",
+                      "fill": "#D4AF37",
+                      "content": "5,000",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
                       "fontWeight": "600"
                     }
                   ]
-                },
-                {
-                  "type": "text",
-                  "id": "XeIRY",
-                  "name": "avSelfChips",
-                  "fill": "#D4AF37",
-                  "content": "5,000",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
                 }
               ]
             },
@@ -3488,96 +3526,71 @@
                   ]
                 },
                 {
-                  "type": "text",
-                  "id": "bRmI6",
-                  "name": "avFoldName",
-                  "fill": "#8B949E",
-                  "content": "玩家",
-                  "fontFamily": "Inter",
-                  "fontSize": 9,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "text",
-                  "id": "FOlJu",
-                  "name": "avFoldChips",
-                  "fill": "#8B949E",
-                  "content": "5,000",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
+                  "type": "frame",
+                  "id": "i8J7U",
+                  "name": "nameRow",
+                  "gap": 3,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "305YV",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#4",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "2w1AH",
+                      "name": "playerName",
+                      "fill": "#8B949E",
+                      "content": "玩家",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "FOlJu",
+                      "name": "avFoldChips",
+                      "fill": "#8B949E",
+                      "content": "5,000",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
                 }
               ]
             },
             {
-              "id": "0PlZG",
+              "id": "7t1l3",
               "type": "ref",
-              "ref": "Jnr3A",
-              "name": "Avatar-BigBlind",
-              "descendants": {
-                "8Z4d3": {
-                  "type": "frame",
-                  "id": "d4W7E",
-                  "name": "nameRow",
-                  "gap": 2,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "JnKG9",
-                      "name": "tag",
-                      "height": 14,
-                      "fill": "#F85149",
-                      "cornerRadius": 3,
-                      "layout": "vertical",
-                      "padding": [
-                        0,
-                        2
-                      ],
-                      "justifyContent": "center",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "EdSdb",
-                          "fill": "#FFFFFF",
-                          "content": "大盲",
-                          "fontFamily": "Inter",
-                          "fontSize": 8,
-                          "fontWeight": "600"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "text",
-                      "id": "OcmHt",
-                      "name": "playerName",
-                      "fill": "#FFFFFF",
-                      "content": "玩家A",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "id": "mrX0v",
-              "type": "ref",
+              "reusable": true,
               "ref": "Jnr3A",
               "name": "Avatar-SmallBlind",
+              "width": 56,
               "descendants": {
                 "8Z4d3": {
-                  "type": "frame",
-                  "id": "WhxbA",
-                  "name": "nameRow",
-                  "gap": 2,
                   "alignItems": "center",
+                  "gap": 3,
                   "children": [
                     {
+                      "type": "text",
+                      "id": "nlpTq",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#2",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
                       "type": "frame",
-                      "id": "TNloL",
+                      "id": "uXQ5y",
                       "name": "tag",
                       "height": 14,
                       "fill": "#D4AF37",
@@ -3592,7 +3605,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "539AE",
+                          "id": "expmG",
                           "fill": "#0D1117",
                           "content": "小盲",
                           "fontFamily": "Inter",
@@ -3603,34 +3616,125 @@
                     },
                     {
                       "type": "text",
-                      "id": "g1hRw",
+                      "id": "1TQ9z",
                       "name": "playerName",
                       "fill": "#FFFFFF",
-                      "content": "玩家B",
+                      "content": "玩家",
                       "fontFamily": "Inter",
                       "fontSize": 9,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pYeno",
+                      "name": "chips",
+                      "fill": "#D4AF37",
+                      "content": "5,000",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
                     }
                   ]
                 }
               }
             },
             {
-              "id": "uY21K",
+              "id": "qUq7e",
               "type": "ref",
+              "reusable": true,
               "ref": "Jnr3A",
-              "name": "Avatar-Dealer",
+              "name": "Avatar-BigBlind",
+              "width": 56,
               "descendants": {
                 "8Z4d3": {
-                  "type": "frame",
-                  "id": "oABVw",
-                  "name": "nameRow",
-                  "gap": 2,
                   "alignItems": "center",
+                  "gap": 3,
                   "children": [
                     {
+                      "type": "text",
+                      "id": "hIhfE",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#3",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
                       "type": "frame",
-                      "id": "I2mr0",
+                      "id": "B0YUs",
+                      "name": "tag",
+                      "height": 14,
+                      "fill": "#F85149",
+                      "cornerRadius": 3,
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        2
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "srDQz",
+                          "fill": "#FFFFFF",
+                          "content": "大盲",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "d8D03",
+                      "name": "playerName",
+                      "fill": "#FFFFFF",
+                      "content": "玩家",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "2BCKk",
+                      "name": "chips",
+                      "fill": "#D4AF37",
+                      "content": "5,000",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "id": "y3IHZ",
+              "type": "ref",
+              "reusable": true,
+              "ref": "Jnr3A",
+              "name": "Avatar-Dealer",
+              "width": 56,
+              "descendants": {
+                "8Z4d3": {
+                  "alignItems": "center",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "WY1h2",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#6",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "fU7zx",
                       "name": "tag",
                       "height": 14,
                       "fill": "#58A6FF",
@@ -3645,7 +3749,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "KZtVL",
+                          "id": "Knrrd",
                           "fill": "#FFFFFF",
                           "content": "庄家",
                           "fontFamily": "Inter",
@@ -3656,23 +3760,35 @@
                     },
                     {
                       "type": "text",
-                      "id": "y0vXd",
+                      "id": "jIEQM",
                       "name": "playerName",
                       "fill": "#FFFFFF",
-                      "content": "玩家C",
+                      "content": "玩家",
                       "fontFamily": "Inter",
                       "fontSize": 9,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "MhKvs",
+                      "name": "chips",
+                      "fill": "#D4AF37",
+                      "content": "5,000",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
                     }
                   ]
                 }
               }
             },
             {
-              "id": "UPS3E",
+              "id": "72Sxx",
               "type": "ref",
+              "reusable": true,
               "ref": "Jnr3A",
               "name": "Avatar-Spectator",
+              "width": 56,
               "descendants": {
                 "JUcXR": {
                   "opacity": 0.6
@@ -3681,15 +3797,22 @@
                   "iconFontName": "eye"
                 },
                 "8Z4d3": {
-                  "type": "frame",
-                  "id": "zeqWu",
-                  "name": "nameRow",
-                  "gap": 2,
                   "alignItems": "center",
+                  "gap": 3,
                   "children": [
                     {
+                      "type": "text",
+                      "id": "tiywT",
+                      "name": "seatNum",
+                      "fill": "#8B949E80",
+                      "content": "#8",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
                       "type": "frame",
-                      "id": "N4Wkv",
+                      "id": "mSUW2",
                       "name": "tag",
                       "height": 14,
                       "fill": "#8B949E",
@@ -3704,7 +3827,7 @@
                       "children": [
                         {
                           "type": "text",
-                          "id": "kUPKD",
+                          "id": "tPqvG",
                           "fill": "#FFFFFF",
                           "content": "观战",
                           "fontFamily": "Inter",
@@ -3715,19 +3838,15 @@
                     },
                     {
                       "type": "text",
-                      "id": "HhgA3",
+                      "id": "RT9e0",
                       "name": "playerName",
                       "fill": "#8B949E",
-                      "content": "玩家D",
+                      "content": "玩家",
                       "fontFamily": "Inter",
                       "fontSize": 9,
                       "fontWeight": "normal"
                     }
                   ]
-                },
-                "MjBXk": {
-                  "content": "",
-                  "opacity": 0
                 }
               }
             }
@@ -4577,12 +4696,39 @@
                           "name": "card1",
                           "width": 32,
                           "height": 44,
-                          "fill": "transparent",
+                          "fill": "#FFFFFF",
                           "cornerRadius": 3,
                           "stroke": {
                             "thickness": 1,
                             "fill": "#D4AF3760"
-                          }
+                          },
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "8C6YR",
+                              "x": 3,
+                              "y": 2,
+                              "name": "r1",
+                              "fill": "#1F2937",
+                              "content": "A",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "UBX1d",
+                              "x": 8,
+                              "y": 15,
+                              "name": "s1",
+                              "fill": "#1F2937",
+                              "content": "♠",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         {
                           "type": "frame",
@@ -4590,12 +4736,39 @@
                           "name": "card2",
                           "width": 32,
                           "height": 44,
-                          "fill": "transparent",
+                          "fill": "#FFFFFF",
                           "cornerRadius": 3,
                           "stroke": {
                             "thickness": 1,
                             "fill": "#D4AF3760"
-                          }
+                          },
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "DTrcY",
+                              "x": 3,
+                              "y": 2,
+                              "name": "r2",
+                              "fill": "#DC2626",
+                              "content": "K",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "6xc0S",
+                              "x": 8,
+                              "y": 15,
+                              "name": "s2",
+                              "fill": "#DC2626",
+                              "content": "♥",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         {
                           "type": "frame",
@@ -4603,12 +4776,39 @@
                           "name": "card3",
                           "width": 32,
                           "height": 44,
-                          "fill": "transparent",
+                          "fill": "#FFFFFF",
                           "cornerRadius": 3,
                           "stroke": {
                             "thickness": 1,
                             "fill": "#D4AF3760"
-                          }
+                          },
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Kn1cU",
+                              "x": 3,
+                              "y": 2,
+                              "name": "r3",
+                              "fill": "#DC2626",
+                              "content": "J",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "o5CYV",
+                              "x": 8,
+                              "y": 15,
+                              "name": "s3",
+                              "fill": "#DC2626",
+                              "content": "♦",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         {
                           "type": "frame",
@@ -4660,630 +4860,6 @@
                       "letterSpacing": 2
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "FDhs7",
-              "x": 235,
-              "y": 250,
-              "name": "Player1",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "QO9oI",
-                  "name": "p1Avatar",
-                  "width": 36,
-                  "height": 36,
-                  "fill": "#D4AF37",
-                  "cornerRadius": 18,
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "RWkX1",
-                      "name": "p1Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#0D1117"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "CNmXR",
-                  "name": "p1NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "xEZ5x",
-                      "name": "p1Name",
-                      "fill": "#FFFFFF",
-                      "content": "玩家A",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "020tW",
-                      "name": "p1Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#1",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "5pIMK",
-                  "name": "p1Chips",
-                  "fill": "#D4AF37",
-                  "content": "5,200",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "HA8KS",
-              "x": 58,
-              "y": 188,
-              "name": "Player2",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "AuWeb",
-                  "name": "p2Avatar",
-                  "width": 40,
-                  "height": 40,
-                  "fill": "#21262D",
-                  "cornerRadius": 20,
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "AI5fA",
-                      "name": "p2Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#8B949E"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "6ryqG",
-                  "name": "p2NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "fgWRg",
-                      "name": "p2Name",
-                      "fill": "#FFFFFF",
-                      "content": "赌神",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "Yj9gS",
-                      "name": "p2Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#2",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "16SNP",
-                  "name": "p2Chips",
-                  "fill": "#D4AF37",
-                  "content": "12,800",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "0JGAV",
-              "x": 58,
-              "y": 55,
-              "name": "Player3",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "ZtuL4",
-                  "name": "p3Avatar",
-                  "width": 36,
-                  "height": 36,
-                  "fill": "#21262D",
-                  "cornerRadius": 18,
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "GjzfW",
-                      "name": "p3Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#8B949E"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "BmRXz",
-                  "name": "p3NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "XRKMC",
-                      "name": "p3Name",
-                      "fill": "#FFFFFF",
-                      "content": "小明",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "9Y540",
-                      "name": "p3Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#3",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "nNk1P",
-                  "name": "p3Chips",
-                  "fill": "#D4AF37",
-                  "content": "8,500",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "YlIc2",
-              "x": 235,
-              "y": 5,
-              "name": "Player4",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "MPXWR",
-                  "name": "p4Avatar",
-                  "width": 36,
-                  "height": 36,
-                  "fill": "#21262D",
-                  "cornerRadius": 18,
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "nIrZq",
-                      "name": "p4Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#8B949E"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "OLJ3w",
-                  "name": "p4NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "djuiT",
-                      "name": "p4Name",
-                      "fill": "#FFFFFF",
-                      "content": "扑克王",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "yGtkj",
-                      "name": "p4Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#4",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "uDa3I",
-                  "name": "p4Chips",
-                  "fill": "#D4AF37",
-                  "content": "15,000",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "0WFzG",
-              "x": 527,
-              "y": 5,
-              "name": "Player5",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "Z94ng",
-                  "name": "p5Avatar",
-                  "width": 36,
-                  "height": 36,
-                  "fill": "#21262D",
-                  "cornerRadius": 18,
-                  "stroke": {
-                    "thickness": 2,
-                    "fill": "#2EA043"
-                  },
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "mMg5m",
-                      "name": "p5Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#8B949E"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "g2TCb",
-                  "name": "p5NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "LHLkn",
-                      "name": "p5Name",
-                      "fill": "#FFFFFF",
-                      "content": "大赢家",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "UROFJ",
-                      "name": "p5Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#5",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "TFadO",
-                  "name": "p5Chips",
-                  "fill": "#D4AF37",
-                  "content": "22,300",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "WVfIC",
-              "x": 722,
-              "y": 55,
-              "name": "Player6",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "b7DXh",
-                  "name": "p6Avatar",
-                  "width": 36,
-                  "height": 36,
-                  "fill": "#21262D",
-                  "cornerRadius": 18,
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "qIvHk",
-                      "name": "p6Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#8B949E"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "5MjZ1",
-                  "name": "p6NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "0Liym",
-                      "name": "p6Name",
-                      "fill": "#FFFFFF",
-                      "content": "牌手",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "nKZIM",
-                      "name": "p6Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#6",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "JhSzT",
-                  "name": "p6Chips",
-                  "fill": "#D4AF37",
-                  "content": "9,100",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "SO0kb",
-              "x": 722,
-              "y": 188,
-              "name": "Player7",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "AH7lB",
-                  "name": "p7Avatar",
-                  "width": 36,
-                  "height": 36,
-                  "fill": "#21262D",
-                  "cornerRadius": 18,
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "qiFHD",
-                      "name": "p7Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#8B949E"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "ye36z",
-                  "name": "p7NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "apM8G",
-                      "name": "p7Name",
-                      "fill": "#FFFFFF",
-                      "content": "高手",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "GYFQm",
-                      "name": "p7Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#7",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "THMaW",
-                  "name": "p7Chips",
-                  "fill": "#D4AF37",
-                  "content": "6,700",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "uGkKh",
-              "x": 527,
-              "y": 250,
-              "name": "Player8",
-              "width": 60,
-              "height": 70,
-              "layout": "vertical",
-              "gap": 3,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "ECIww",
-                  "name": "p8Avatar",
-                  "width": 36,
-                  "height": 36,
-                  "fill": "#F8514940",
-                  "cornerRadius": 18,
-                  "stroke": {
-                    "thickness": 2,
-                    "fill": "#F85149"
-                  },
-                  "layout": "vertical",
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon_font",
-                      "id": "NX3it",
-                      "name": "p8Icon",
-                      "width": 18,
-                      "height": 18,
-                      "iconFontName": "user",
-                      "iconFontFamily": "lucide",
-                      "fill": "#F85149"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "Cuhtz",
-                  "name": "p8NameRow",
-                  "gap": 4,
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "siSRs",
-                      "name": "p8Name",
-                      "fill": "#FFFFFF",
-                      "content": "新手",
-                      "fontFamily": "Inter",
-                      "fontSize": 9,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "9Q3Di",
-                      "name": "p8Seat",
-                      "fill": "#D4AF3780",
-                      "content": "#8",
-                      "fontFamily": "Inter",
-                      "fontSize": 8,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "id": "RoYPf",
-                  "name": "p8Chips",
-                  "fill": "#D4AF37",
-                  "content": "3,400",
-                  "fontFamily": "Inter",
-                  "fontSize": 10,
-                  "fontWeight": "600"
                 }
               ]
             },
@@ -5405,6 +4981,597 @@
               "width": 267,
               "height": 1,
               "fill": "#D4AF3760"
+            },
+            {
+              "id": "4NvPZ",
+              "type": "ref",
+              "ref": "EJXXS",
+              "x": 235,
+              "y": 250,
+              "name": "s1",
+              "descendants": {
+                "hZbSx": {
+                  "content": "#1"
+                },
+                "XeIRY": {
+                  "content": "5,200"
+                }
+              }
+            },
+            {
+              "id": "wbP5j",
+              "type": "ref",
+              "ref": "4Emi8",
+              "x": 527,
+              "y": 5,
+              "name": "s5",
+              "descendants": {
+                "nSWmv": {
+                  "content": "#5"
+                },
+                "6OoPL": {
+                  "content": "22,300"
+                }
+              }
+            },
+            {
+              "id": "jyUXP",
+              "type": "ref",
+              "ref": "0JGgQ",
+              "x": 722,
+              "y": 55,
+              "name": "s6",
+              "descendants": {
+                "305YV": {
+                  "content": "#6"
+                },
+                "FOlJu": {
+                  "content": "9,100"
+                }
+              }
+            },
+            {
+              "id": "fsOND",
+              "type": "ref",
+              "ref": "Jnr3A",
+              "x": 722,
+              "y": 188,
+              "name": "s7",
+              "descendants": {
+                "tQEpH": {
+                  "content": "#7"
+                },
+                "ZmPkz": {
+                  "content": "高手"
+                },
+                "MjBXk": {
+                  "content": "6,700"
+                }
+              }
+            },
+            {
+              "id": "X8V4q",
+              "type": "ref",
+              "ref": "Jnr3A",
+              "name": "s2",
+              "x": 58,
+              "y": 188,
+              "descendants": {
+                "8Z4d3": {
+                  "alignItems": "center",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NiTd0",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#2",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "r8xDI",
+                      "name": "tag",
+                      "height": 14,
+                      "fill": "#D4AF37",
+                      "cornerRadius": 3,
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        2
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "1nh5t",
+                          "fill": "#0D1117",
+                          "content": "小盲",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "zIbji",
+                      "name": "playerName",
+                      "fill": "#FFFFFF",
+                      "content": "玩家B",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "2Id3X",
+                      "name": "chips",
+                      "fill": "#D4AF37",
+                      "content": "12,800",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "id": "TkAKw",
+              "type": "ref",
+              "ref": "Jnr3A",
+              "name": "s3",
+              "x": 58,
+              "y": 55,
+              "descendants": {
+                "8Z4d3": {
+                  "alignItems": "center",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "U1fGZ",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#3",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TXCXG",
+                      "name": "tag",
+                      "height": 14,
+                      "fill": "#F85149",
+                      "cornerRadius": 3,
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        2
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SXeKc",
+                          "fill": "#FFFFFF",
+                          "content": "大盲",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "kRvrz",
+                      "name": "playerName",
+                      "fill": "#FFFFFF",
+                      "content": "玩家A",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "dN1Gx",
+                      "name": "chips",
+                      "fill": "#D4AF37",
+                      "content": "8,500",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "id": "Xzs8z",
+              "type": "ref",
+              "ref": "Jnr3A",
+              "name": "s4",
+              "x": 235,
+              "y": 5,
+              "descendants": {
+                "8Z4d3": {
+                  "alignItems": "center",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "CIhGd",
+                      "name": "seatNum",
+                      "fill": "#D4AF3780",
+                      "content": "#4",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "jt5mf",
+                      "name": "tag",
+                      "height": 14,
+                      "fill": "#58A6FF",
+                      "cornerRadius": 3,
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        2
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "XAblM",
+                          "fill": "#FFFFFF",
+                          "content": "庄家",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "sMcOZ",
+                      "name": "playerName",
+                      "fill": "#FFFFFF",
+                      "content": "玩家C",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "9EAzM",
+                      "name": "chips",
+                      "fill": "#D4AF37",
+                      "content": "15,000",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "id": "GCP2m",
+              "type": "ref",
+              "ref": "Jnr3A",
+              "name": "s8",
+              "x": 527,
+              "y": 250,
+              "descendants": {
+                "JUcXR": {
+                  "opacity": 0.6
+                },
+                "7IOWE": {
+                  "iconFontName": "eye"
+                },
+                "8Z4d3": {
+                  "alignItems": "center",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "EOh8e",
+                      "name": "seatNum",
+                      "fill": "#8B949E80",
+                      "content": "#8",
+                      "fontFamily": "Inter",
+                      "fontSize": 8,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "2fQPN",
+                      "name": "tag",
+                      "height": 14,
+                      "fill": "#8B949E",
+                      "cornerRadius": 3,
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        2
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "nkRRg",
+                          "fill": "#FFFFFF",
+                          "content": "观战",
+                          "fontFamily": "Inter",
+                          "fontSize": 8,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "xcVtZ",
+                      "name": "playerName",
+                      "fill": "#8B949E",
+                      "content": "玩家D",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "id": "tpUgj",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P1Card1",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 299,
+              "y": 254,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "NQufb",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P1Card2",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 322,
+              "y": 254,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "bYfQA",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P2Card1",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 122,
+              "y": 194,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "GXZsu",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P2Card2",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 145,
+              "y": 194,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "u8v7r",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P3Card1",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 122,
+              "y": 59,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "chlKO",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P3Card2",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 145,
+              "y": 59,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "FJUhU",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P4Card1",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 299,
+              "y": 9,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "djEFY",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P4Card2",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 322,
+              "y": 9,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "qsQyv",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P5Card1",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 480,
+              "y": 9,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "5JOVN",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P5Card2",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 503,
+              "y": 9,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "Ju6mk",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P7Card1",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 675,
+              "y": 196,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
+            },
+            {
+              "id": "a2lRj",
+              "type": "ref",
+              "ref": "RZtoL",
+              "name": "P7Card2",
+              "width": 20,
+              "height": 28,
+              "cornerRadius": 3,
+              "x": 698,
+              "y": 196,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D4AF37"
+              },
+              "descendants": {
+                "65HXQ": {
+                  "fontSize": 4
+                }
+              }
             }
           ]
         }
